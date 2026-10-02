@@ -1,14 +1,14 @@
 # C# Fundamentals
 
-A collection of C# fundamentals for learning, revision, and quick reference.
+This document contains the basic C# concepts for quick revision and reference.
 
 ---
 
 ## Step 1: What is C#?
 
-**C# (C-Sharp)** is a programming language developed by **Microsoft**.
+**C# (C-Sharp)** is a modern, general-purpose programming language developed by **Microsoft**.
 
-It is commonly used for:
+C# is commonly used for:
 
 * Web applications
 * REST APIs
@@ -22,7 +22,7 @@ C# runs on **.NET**, Microsoft's development platform.
 
 ### C# and .NET Ecosystem
 
-A simple way to understand it:
+A simple way to understand the relationship:
 
 ```text
 C#       → Programming language
@@ -43,7 +43,7 @@ C# + .NET + ASP.NET Core + SQL Server
 
 # Step 2: Your First C# Program
 
-Modern C# allows a very simple program:
+A simple C# program can be written as:
 
 ```csharp
 Console.WriteLine("Hello, World!");
@@ -59,7 +59,7 @@ Hello, World!
 
 `Console` refers to the console.
 
-`WriteLine()` prints something to the console.
+`WriteLine()` prints text or values to the console and then moves to the next line.
 
 So:
 
@@ -72,6 +72,8 @@ means:
 ```text
 Print "Hello, World!" on the screen.
 ```
+
+---
 
 ## Printing Multiple Values
 
@@ -89,9 +91,11 @@ I am learning C#
 C# is powerful
 ```
 
+---
+
 ## Console.Write()
 
-You can also use:
+You can also use `Console.Write()`:
 
 ```csharp
 Console.Write("Hello ");
@@ -111,15 +115,44 @@ Hello World
 | `Console.WriteLine()` | Prints and moves to the next line                    |
 | `Console.Write()`     | Prints without automatically moving to the next line |
 
+Example:
+
+```csharp
+Console.WriteLine("Hello");
+Console.WriteLine("World");
+```
+
+Output:
+
+```text
+Hello
+World
+```
+
+While:
+
+```csharp
+Console.Write("Hello ");
+Console.Write("World");
+```
+
+Output:
+
+```text
+Hello World
+```
+
 ---
 
 # Step 3: Comments
 
-Comments are ignored by C#.
+**Comments** are ignored by the C# compiler.
 
-They are useful for explaining your code.
+They are mainly used to explain code and make programs easier to understand.
 
 ## Single-Line Comment
+
+Use `//` for a single-line comment.
 
 ```csharp
 // This is a comment
@@ -128,6 +161,8 @@ Console.WriteLine("Hello");
 ```
 
 ## Multi-Line Comment
+
+Use `/* */` for multi-line comments.
 
 ```csharp
 /*
@@ -138,13 +173,22 @@ Console.WriteLine("Hello");
 Console.WriteLine("Hello");
 ```
 
+### Why Use Comments?
+
+Comments can be useful for:
+
+* Explaining code
+* Documenting logic
+* Making code easier to understand
+* Temporarily disabling code during development
+
 ---
 
 # Step 4: Variables
 
-A **variable** stores data.
+A **variable** is a named storage location used to hold data.
 
-For example:
+Example:
 
 ```csharp
 string name = "Sandip";
@@ -153,7 +197,7 @@ double salary = 50000.50;
 bool isStudent = true;
 ```
 
-Think of a variable like a box:
+You can think of a variable like a box that stores a value:
 
 ```text
 name
@@ -186,17 +230,19 @@ Sandip
 22
 ```
 
+---
+
 ## Important C# Data Types
 
-| Type      | Example   | Used For         |
-| --------- | --------- | ---------------- |
-| `int`     | `10`      | Whole numbers    |
-| `double`  | `10.5`    | Decimal numbers  |
-| `float`   | `10.5f`   | Decimal numbers  |
-| `decimal` | `100.50m` | Financial values |
-| `char`    | `'A'`     | Single character |
-| `string`  | `"Hello"` | Text             |
-| `bool`    | `true`    | True/false       |
+| Type      | Example   | Used For                         |
+| --------- | --------- | -------------------------------- |
+| `int`     | `10`      | Whole numbers                    |
+| `double`  | `10.5`    | Decimal numbers                  |
+| `float`   | `10.5f`   | Decimal numbers                  |
+| `decimal` | `100.50m` | Financial/precise decimal values |
+| `char`    | `'A'`     | Single character                 |
+| `string`  | `"Hello"` | Text                             |
+| `bool`    | `true`    | True/false values                |
 
 ### Example
 
@@ -213,7 +259,11 @@ bool isActive = true;
 
 # Step 5: String Interpolation
 
-One of the most useful ways to combine variables and text is **string interpolation**.
+**String interpolation** is a convenient way to combine text with variables or expressions.
+
+It uses the `$` symbol before the string.
+
+Example:
 
 ```csharp
 string name = "Sandip";
@@ -228,7 +278,7 @@ Console.WriteLine($"My name is {name} and I am {age} years old.");
 My name is Sandip and I am 22 years old.
 ```
 
-The `$` tells C# that `{}` contains variables or expressions.
+The `$` tells C# that expressions inside `{}` should be evaluated.
 
 For example:
 
@@ -247,304 +297,27 @@ Sum = 30
 
 ---
 
-# C# Tutorial — User Input & Type Conversion
-
-Now let's learn how to take input from the user.
-
-Real programs don't just display fixed values. They also receive and process data from users.
-
----
-
-## 1. Console.ReadLine()
-
-We use `Console.ReadLine()` to get input from the user.
-
-```csharp
-Console.Write("Enter your name: ");
-
-string name = Console.ReadLine();
-
-Console.WriteLine($"Hello, {name}!");
-```
-
-### Example
-
-```text
-Enter your name: Sandip
-Hello, Sandip!
-```
-
-### How It Works
-
-```csharp
-string name = Console.ReadLine();
-```
-
-The user enters:
-
-```text
-Sandip
-```
-
-and it gets stored in:
-
-```text
-name
- ↓
-"Sandip"
-```
-
----
-
-# 2. Important: ReadLine() Returns a String
-
-Suppose we want the user's age:
-
-```csharp
-Console.Write("Enter your age: ");
-
-string age = Console.ReadLine();
-```
-
-Even if the user enters:
-
-```text
-22
-```
-
-C# initially treats it as:
-
-```text
-"22"
-```
-
-That's a **string**, not an integer.
-
-So this won't work as expected for numeric addition:
-
-```csharp
-Console.WriteLine(age + 5);
-```
-
-Because `age` is text.
-
----
-
-# 3. Converting String to Integer
-
-Use `int.Parse()`:
-
-```csharp
-Console.Write("Enter your age: ");
-
-int age = int.Parse(Console.ReadLine());
-
-Console.WriteLine($"You are {age} years old.");
-```
-
-### Input
-
-```text
-Enter your age: 22
-```
-
-### Output
-
-```text
-You are 22 years old.
-```
-
-The conversion is:
-
-```text
-"22"
- ↓
-int.Parse()
- ↓
-22
-```
-
----
-
-# 4. Example: Add Two Numbers
-
-Let's make a small calculator:
-
-```csharp
-Console.Write("Enter first number: ");
-int num1 = int.Parse(Console.ReadLine());
-
-Console.Write("Enter second number: ");
-int num2 = int.Parse(Console.ReadLine());
-
-int sum = num1 + num2;
-
-Console.WriteLine($"Sum = {sum}");
-```
-
-### Example
-
-```text
-Enter first number: 10
-Enter second number: 20
-
-Sum = 30
-```
-
----
-
-# 5. Different Types of Conversion
-
-## String → int
-
-```csharp
-int age = int.Parse("22");
-```
-
-## String → double
-
-```csharp
-double price = double.Parse("99.50");
-```
-
-## String → decimal
-
-```csharp
-decimal salary = decimal.Parse("50000.50");
-```
-
-## String → bool
-
-```csharp
-bool result = bool.Parse("true");
-```
-
----
-
-# 6. Convert Methods
-
-You can also use the `Convert` class.
-
-```csharp
-int age = Convert.ToInt32(Console.ReadLine());
-
-double price = Convert.ToDouble(Console.ReadLine());
-
-decimal salary = Convert.ToDecimal(Console.ReadLine());
-```
-
-For beginners, you'll commonly see both:
-
-```csharp
-int.Parse()
-```
-
-and:
-
-```csharp
-Convert.ToInt32()
-```
-
----
-
-# 7. Parse() vs TryParse()
-
-There is an important problem with `Parse()`.
-
-Suppose the user enters:
-
-```text
-abc
-```
-
-when your program expects an integer:
-
-```csharp
-int age = int.Parse(Console.ReadLine());
-```
-
-The program throws an exception because `"abc"` cannot be converted to an integer.
-
-A safer approach is `TryParse()`:
-
-```csharp
-Console.Write("Enter your age: ");
-
-bool success = int.TryParse(Console.ReadLine(), out int age);
-
-Console.WriteLine($"Age = {age}");
-```
-
-`TryParse()` returns:
-
-```text
-true  → Conversion successful
-false → Conversion failed
-```
-
-> `TryParse()` is especially useful when working with user input because it allows you to handle invalid input without immediately throwing a conversion exception.
-
----
-
-# 8. Mini Project: Simple Calculator
-
-Let's combine what we've learned.
-
-```csharp
-Console.Write("Enter first number: ");
-double num1 = double.Parse(Console.ReadLine());
-
-Console.Write("Enter second number: ");
-double num2 = double.Parse(Console.ReadLine());
-
-Console.WriteLine($"Addition = {num1 + num2}");
-Console.WriteLine($"Subtraction = {num1 - num2}");
-Console.WriteLine($"Multiplication = {num1 * num2}");
-Console.WriteLine($"Division = {num1 / num2}");
-```
-
-### Example
-
-```text
-Enter first number: 20
-Enter second number: 5
-
-Addition = 25
-Subtraction = 15
-Multiplication = 100
-Division = 4
-```
-
----
-
 # Quick Revision
 
-| Concept               | Remember                                    |
-| --------------------- | ------------------------------------------- |
-| C#                    | Programming language developed by Microsoft |
-| .NET                  | Platform/runtime for building applications  |
-| `Console.WriteLine()` | Prints and moves to the next line           |
-| `Console.Write()`     | Prints without moving to the next line      |
-| `//`                  | Single-line comment                         |
-| `/* */`               | Multi-line comment                          |
-| Variable              | Stores data                                 |
-| `Console.ReadLine()`  | Reads user input as a string                |
-| `int.Parse()`         | Converts a string to an integer             |
-| `double.Parse()`      | Converts a string to a double               |
-| `Convert.ToInt32()`   | Converts a value to an integer              |
-| `TryParse()`          | Safely attempts conversion                  |
-| `$"..."`              | String interpolation                        |
+```text
+C#          → Programming language
+.NET        → Development platform/runtime
+Console     → Used for console input/output
+WriteLine() → Prints and moves to a new line
+Write()     → Prints without moving to a new line
+//          → Single-line comment
+/* */       → Multi-line comment
+Variable    → Stores data
+$"..."      → String interpolation
+```
 
----
+## Key Points
 
-## Key Takeaways
-
-* C# is a programming language developed by Microsoft.
+* C# is developed by Microsoft.
 * C# runs on the .NET platform.
-* `Console.WriteLine()` is used to display output.
-* `Console.ReadLine()` is used to receive user input.
-* `Console.ReadLine()` returns input as a string.
-* String values can be converted to numeric types using methods such as `Parse()` and `Convert`.
-* `TryParse()` is useful for safely handling invalid input.
-* Variables are used to store data.
-* String interpolation makes it easy to combine text with variables and expressions.
+* `Console.WriteLine()` prints output and moves to the next line.
+* `Console.Write()` prints output without automatically moving to the next line.
+* Comments are ignored by the compiler.
+* Variables store data.
+* C# provides different data types such as `int`, `double`, `decimal`, `char`, `string`, and `bool`.
+* String interpolation uses `$` and `{}` to insert variables or expressions into strings.
