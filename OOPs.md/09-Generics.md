@@ -1,341 +1,117 @@
 # C# Generics
 
-Generics allow you to write **reusable, type-safe code** that works with different data types.
+**Generics** allow you to write reusable code that works with different data types while maintaining **type safety**.
 
-Instead of writing separate code for:
+Generic example:
 
-```text
-int
-string
-double
-Food
-Order
-Customer
+```csharp id="zj4q1k"
+List<int> numbers = new();
+List<string> names = new();
 ```
-
-you can write one generic class, method, or collection that works with many types.
-
-Generics are heavily used throughout modern C# and .NET.
 
 ---
 
-# 1. What Are Generics?
+## 1. Why Generics?
 
-Without generics, you might write:
+Without generics:
 
-```csharp
-int Add(int a, int b)
-{
-    return a + b;
-}
-```
-
-If you want to add `double` values, you need another method:
-
-```csharp
-double Add(double a, double b)
-{
-    return a + b;
-}
+```csharp id="2v2q0y"
+object value = 100;
+int number = (int)value;
 ```
 
 With generics:
 
-```csharp
-T Add<T>(T a, T b)
-{
-    // ...
-}
+```csharp id="z8a5qv"
+List<int> numbers = new();
 ```
 
-The same concept can work with different types.
-
----
-
-# 2. Why Use Generics?
-
-Generics provide:
+Benefits:
 
 * Type safety
-* Code reuse
-* Better performance
-* Less duplicate code
-* Compile-time type checking
-* Flexible classes and methods
-
-For example:
-
-```csharp
-List<int> numbers = new();
-List<string> names = new();
-List<double> prices = new();
-```
-
-`List<T>` is a generic collection.
-
-Here:
-
-```text
-T = Type
-```
-
-So:
-
-```csharp
-List<int>
-```
-
-means:
-
-```text
-T = int
-```
-
-and:
-
-```csharp
-List<string>
-```
-
-means:
-
-```text
-T = string
-```
+* Code reusability
+* Less casting
+* Better readability
 
 ---
 
-# 3. Generic Type Parameter
+# 2. Generic Class
 
-A type parameter is commonly represented using:
-
-```text
-T
-```
-
-Example:
-
-```csharp
+```csharp id="z19v5r"
 class Box<T>
 {
     public T Value { get; set; }
-}
-```
-
-Here `T` is a placeholder for a type.
-
-Create an integer box:
-
-```csharp
-Box<int> numberBox = new();
-
-numberBox.Value = 100;
-```
-
-Create a string box:
-
-```csharp
-Box<string> nameBox = new();
-
-nameBox.Value = "Sandip";
-```
-
-The same class works with different types.
-
----
-
-# 4. Generic Class
-
-A generic class contains one or more type parameters.
-
-```csharp
-class Box<T>
-{
-    public T Value { get; set; }
-
-    public void Display()
-    {
-        Console.WriteLine(Value);
-    }
-}
-```
-
-Use it:
-
-```csharp
-Box<int> number = new();
-
-number.Value = 100;
-number.Display();
-```
-
-Output:
-
-```text
-100
-```
-
-Another type:
-
-```csharp
-Box<string> name = new();
-
-name.Value = "Sandip";
-name.Display();
-```
-
-Output:
-
-```text
-Sandip
-```
-
----
-
-# 5. Generic Classes with Multiple Types
-
-You can have multiple generic parameters.
-
-```csharp
-class Pair<TKey, TValue>
-{
-    public TKey Key { get; set; }
-    public TValue Value { get; set; }
-
-    public Pair(TKey key, TValue value)
-    {
-        Key = key;
-        Value = value;
-    }
 }
 ```
 
 Usage:
 
-```csharp
-Pair<int, string> student =
-    new Pair<int, string>(1, "Sandip");
+```csharp id="7p4h9v"
+Box<int> numberBox = new()
+{
+    Value = 100
+};
+
+Box<string> textBox = new()
+{
+    Value = "Hello"
+};
 ```
 
-Access:
-
-```csharp
-Console.WriteLine(student.Key);
-Console.WriteLine(student.Value);
-```
-
-Output:
-
-```text
-1
-Sandip
-```
-
-This is similar to:
-
-```csharp
-Dictionary<int, string>
-```
+`T` represents a type.
 
 ---
 
-# 6. Generic Methods
+# 3. Generic Method
 
-A generic method can work with different types.
-
-```csharp
-static void Display<T>(T value)
+```csharp id="d4t8wr"
+static void Print<T>(T value)
 {
     Console.WriteLine(value);
 }
 ```
 
-Use:
+Usage:
 
-```csharp
-Display<int>(100);
-Display<string>("Sandip");
-Display<double>(99.5);
+```csharp id="oqc5h5"
+Print<int>(100);
+Print<string>("Sandip");
 ```
 
-Output:
+C# can infer the type:
 
-```text
-100
-Sandip
-99.5
+```csharp id="y9x3ag"
+Print(100);
+Print("Sandip");
 ```
-
-C# can often infer the type automatically:
-
-```csharp
-Display(100);
-Display("Sandip");
-Display(99.5);
-```
-
-This is called **type inference**.
 
 ---
 
-# 7. Generic Method Returning a Value
+# 4. Multiple Type Parameters
 
-```csharp
-static T GetValue<T>(T value)
+```csharp id="grv6os"
+class Pair<TKey, TValue>
 {
-    return value;
+    public TKey Key { get; set; }
+    public TValue Value { get; set; }
 }
 ```
 
 Usage:
 
-```csharp
-int number = GetValue(100);
-
-string name = GetValue("Sandip");
-```
-
-The compiler determines the appropriate type.
-
----
-
-# 8. Generic Method with Two Types
-
-```csharp
-static void DisplayPair<T, U>(T first, U second)
+```csharp id="2pkcbb"
+Pair<int, string> user = new()
 {
-    Console.WriteLine($"First: {first}");
-    Console.WriteLine($"Second: {second}");
-}
-```
-
-Usage:
-
-```csharp
-DisplayPair(100, "Sandip");
-```
-
-Output:
-
-```text
-First: 100
-Second: Sandip
-```
-
-Here:
-
-```text
-T = int
-U = string
+    Key = 1,
+    Value = "Sandip"
+};
 ```
 
 ---
 
-# 9. Generic Interfaces
+# 5. Generic Interface
 
-Interfaces can also be generic.
-
-```csharp
+```csharp id="5b5ksj"
 interface IRepository<T>
 {
     void Add(T item);
@@ -343,109 +119,54 @@ interface IRepository<T>
 }
 ```
 
-A class can implement it:
+Implementation:
 
-```csharp
-class UserRepository : IRepository<User>
+```csharp id="6c0x7r"
+class FoodRepository : IRepository<Food>
 {
-    public void Add(User user)
+    public void Add(Food item)
     {
-        Console.WriteLine($"Added: {user.Name}");
+        // Add food
     }
 
-    public User? GetById(int id)
+    public Food? GetById(int id)
     {
         return null;
     }
 }
 ```
 
-Now the repository is strongly typed for `User`.
-
 ---
 
-# 10. Generic Constraints
+# 6. Generic Constraints
 
-Sometimes you don't want to allow every possible type.
+Constraints control which types can be used.
 
-For example:
+### `where T : class`
 
-```csharp
-class Repository<T>
-{
-}
-```
-
-allows any type.
-
-But you can restrict `T`.
-
-This is called a **generic constraint**.
-
-Syntax:
-
-```csharp
+```csharp id="g1x5zq"
 class Repository<T> where T : class
 {
 }
 ```
 
----
+Only reference types.
 
-# 11. `where T : class`
+### `where T : struct`
 
-This requires `T` to be a reference type.
-
-```csharp
-class Repository<T> where T : class
+```csharp id="34o9pp"
+class Storage<T> where T : struct
 {
 }
 ```
 
-Valid:
+Only value types.
 
-```csharp
-Repository<string> repository = new();
-```
+### `where T : new()`
 
-A class type is also valid:
+Requires a public parameterless constructor.
 
-```csharp
-Repository<User> repository = new();
-```
-
----
-
-# 12. `where T : struct`
-
-Requires `T` to be a value type.
-
-```csharp
-class NumberBox<T> where T : struct
-{
-    public T Value { get; set; }
-}
-```
-
-Valid:
-
-```csharp
-NumberBox<int> box = new();
-```
-
-Valid:
-
-```csharp
-NumberBox<double> box = new();
-```
-
----
-
-# 13. `where T : new()`
-
-Requires `T` to have a public parameterless constructor.
-
-```csharp
+```csharp id="c4f5l6"
 class Factory<T> where T : new()
 {
     public T Create()
@@ -455,446 +176,129 @@ class Factory<T> where T : new()
 }
 ```
 
-Example:
+### Interface constraint
 
-```csharp
-class User
+```csharp id="q8j8ai"
+class Service<T> where T : IDisposable
 {
-    public string Name { get; set; } = "";
 }
-
-Factory<User> factory = new();
-
-User user = factory.Create();
 ```
 
 ---
 
-# 14. `where T : BaseClass`
+# 7. Multiple Constraints
 
-You can require `T` to inherit from a specific class.
-
-```csharp
-class Animal
-{
-    public void Eat()
-    {
-        Console.WriteLine("Eating...");
-    }
-}
-
-class AnimalManager<T> where T : Animal
-{
-    public void Process(T animal)
-    {
-        animal.Eat();
-    }
-}
-```
-
-Now:
-
-```csharp
-class Dog : Animal
-{
-}
-```
-
-is valid:
-
-```csharp
-AnimalManager<Dog> manager = new();
-
-manager.Process(new Dog());
-```
-
----
-
-# 15. `where T : Interface`
-
-You can require a type to implement an interface.
-
-```csharp
-interface IPayment
-{
-    void Pay();
-}
-```
-
-Generic class:
-
-```csharp
-class PaymentProcessor<T> where T : IPayment
-{
-    public void Process(T payment)
-    {
-        payment.Pay();
-    }
-}
-```
-
-Implementation:
-
-```csharp
-class EsewaPayment : IPayment
-{
-    public void Pay()
-    {
-        Console.WriteLine("Payment using eSewa");
-    }
-}
-```
-
-Usage:
-
-```csharp
-PaymentProcessor<EsewaPayment> processor = new();
-
-processor.Process(new EsewaPayment());
-```
-
----
-
-# 16. Multiple Generic Constraints
-
-You can combine constraints.
-
-```csharp
+```csharp id="6qzqv1"
 class Repository<T>
     where T : class, IEntity, new()
 {
 }
 ```
 
-This means `T` must:
+Meaning:
 
-* Be a reference type
-* Implement `IEntity`
-* Have a public parameterless constructor
-
-Example:
-
-```csharp
-interface IEntity
-{
-    int Id { get; set; }
-}
-
-class User : IEntity
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = "";
-}
-```
-
-Then:
-
-```csharp
-Repository<User> repository = new();
+```text id="pp2aqw"
+T must be:
+✓ Reference type
+✓ IEntity
+✓ Have parameterless constructor
 ```
 
 ---
 
-# 17. Common Generic Constraints
+# 8. Generic Collections
 
-| Constraint            | Meaning                          |
-| --------------------- | -------------------------------- |
-| `where T : class`     | Reference type                   |
-| `where T : struct`    | Value type                       |
-| `where T : new()`     | Public parameterless constructor |
-| `where T : BaseClass` | Must inherit from class          |
-| `where T : Interface` | Must implement interface         |
-| `where T : unmanaged` | Unmanaged value type             |
-| `where T : notnull`   | Cannot be nullable               |
+The most common generics are collections:
 
----
-
-# 18. Generic Collections
-
-Many .NET collections are generic.
-
-Examples:
-
-```csharp
-List<int>
-List<string>
-
-Dictionary<int, string>
-
-HashSet<string>
-
-Queue<Order>
-
-Stack<string>
-```
-
-For example:
-
-```csharp
-List<string> foods = new();
-
-foods.Add("Pizza");
-foods.Add("Burger");
-```
-
-The compiler prevents incorrect types:
-
-```csharp
-foods.Add(100); // Error
-```
-
-This is one of the major benefits of generics.
-
----
-
-# 19. Generics Provide Type Safety
-
-Without strong typing, you could accidentally mix values.
-
-With:
-
-```csharp
-List<int> numbers = new();
-```
-
-you can only add integers:
-
-```csharp
-numbers.Add(10);
-numbers.Add(20);
-numbers.Add(30);
-```
-
-This is invalid:
-
-```csharp
-numbers.Add("Hello");
-```
-
-The compiler catches the problem before the application runs.
-
----
-
-# 20. Generics and Performance
-
-Generics can also improve performance.
-
-Consider:
-
-```csharp
-List<int> numbers = new();
-```
-
-The integer values remain strongly typed.
-
-Older non-generic collections such as `ArrayList` store values as `object`, which can introduce boxing and unboxing for value types.
-
-Generic collections avoid unnecessary boxing in many common cases.
-
----
-
-# 21. Boxing and Unboxing
-
-Value types can be boxed into `object`:
-
-```csharp
-int number = 100;
-
-object value = number;
-```
-
-This is boxing.
-
-Unboxing:
-
-```csharp
-int result = (int)value;
-```
-
-Generic collections generally avoid this for value types:
-
-```csharp
+```csharp id="z5l0cs"
 List<int> numbers = new();
 
-numbers.Add(100);
-```
+Dictionary<int, string> users = new();
 
-This is one reason generic collections are preferred.
+HashSet<string> names = new();
 
----
-
-# 22. Generic Delegates
-
-Delegates can also be generic.
-
-Common built-in generic delegates are:
-
-```text
-Action
-Func
-Predicate
+Queue<Order> orders = new();
 ```
 
 ---
 
-## Action
+# 9. Generic Delegate
 
-`Action` represents a method that returns `void`.
+### Action
 
-```csharp
-Action<string> print = name =>
-{
-    Console.WriteLine(name);
-};
-
-print("Sandip");
+```csharp id="q1s8k4"
+Action<string> print =
+    message => Console.WriteLine(message);
 ```
 
----
+### Func
 
-## Func
-
-`Func` represents a method that returns a value.
-
-```csharp
+```csharp id="1v6gcf"
 Func<int, int, int> add =
     (a, b) => a + b;
-
-int result = add(10, 20);
-
-Console.WriteLine(result);
 ```
 
-Output:
+### Predicate
 
-```text
-30
-```
-
----
-
-## Predicate
-
-`Predicate<T>` returns `bool`.
-
-```csharp
+```csharp id="s4f5nw"
 Predicate<int> isEven =
-    number => number % 2 == 0;
-
-Console.WriteLine(isEven(10));
-```
-
-Output:
-
-```text
-True
+    x => x % 2 == 0;
 ```
 
 ---
 
-# 23. Generic Extension Methods
+# 10. Generic Extension Method
 
-Extension methods can also be generic.
-
-```csharp
-static class CollectionExtensions
+```csharp id="4c7c2x"
+static class Extensions
 {
-    public static bool IsEmpty<T>(this IEnumerable<T> items)
+    public static bool IsNull<T>(this T value)
     {
-        return !items.Any();
+        return value == null;
     }
 }
 ```
 
 Usage:
 
-```csharp
-List<string> foods = [];
+```csharp id="kw0dyt"
+string? name = null;
 
-bool empty = foods.IsEmpty();
+Console.WriteLine(name.IsNull());
 ```
-
-This is commonly used in utility libraries and application code.
 
 ---
 
-# 24. Generic Repository Pattern
+# 11. Generic Repository Pattern
 
-Generics are commonly used in backend applications.
+Common in backend applications:
 
-For example:
-
-```csharp
+```csharp id="c4n8t5"
 interface IRepository<T>
 {
-    void Add(T entity);
-
-    T? GetById(int id);
-
-    void Delete(int id);
-
-    List<T> GetAll();
-}
-```
-
-A generic repository:
-
-```csharp
-class Repository<T> : IRepository<T>
-{
-    private readonly List<T> items = new();
-
-    public void Add(T entity)
-    {
-        items.Add(entity);
-    }
-
-    public T? GetById(int id)
-    {
-        return default;
-    }
-
-    public void Delete(int id)
-    {
-        // Delete implementation
-    }
-
-    public List<T> GetAll()
-    {
-        return items;
-    }
+    Task<List<T>> GetAllAsync();
+    Task<T?> GetByIdAsync(int id);
+    Task AddAsync(T entity);
 }
 ```
 
 Then:
 
-```csharp
-Repository<User> users = new();
-
-Repository<Order> orders = new();
-
-Repository<Food> foods = new();
+```csharp id="n7f4di"
+IRepository<Food> foodRepository;
+IRepository<Order> orderRepository;
+IRepository<User> userRepository;
 ```
 
-The same repository concept can work with different entity types.
-
-> In real ASP.NET Core applications, repository patterns are a design choice rather than something every project must use.
+The same interface structure can work with different entity types.
 
 ---
 
-# 25. `default(T)`
+# 12. `default(T)`
 
-Sometimes you need the default value of a generic type.
+Returns the default value of a type.
 
-Use:
-
-```csharp
-default(T)
-```
-
-Example:
-
-```csharp
+```csharp id="l1r6kf"
 static T GetDefault<T>()
 {
     return default!;
@@ -903,739 +307,192 @@ static T GetDefault<T>()
 
 Examples:
 
-```text
+```text id="x7osbq"
 int       → 0
 bool      → false
+string    → null
 reference → null
 ```
 
-Modern nullable-reference-type projects may use `default!` when the surrounding API guarantees an appropriate value.
-
 ---
 
-# 26. Generic Class with Default Value
+# 13. Generics vs Object
 
-```csharp
-class Box<T>
-{
-    public T GetDefault()
-    {
-        return default!;
-    }
-}
-```
+Without generics:
 
-Usage:
-
-```csharp
-Box<int> numberBox = new();
-
-Console.WriteLine(numberBox.GetDefault());
-```
-
-Output:
-
-```text
-0
-```
-
----
-
-# 27. Generic Type Naming Conventions
-
-Common conventions:
-
-```text
-T
-TKey
-TValue
-TItem
-TEntity
-TResult
-TRequest
-TResponse
-```
-
-Examples:
-
-```csharp
-class Repository<TEntity>
-{
-}
-```
-
-```csharp
-class Response<TData>
-{
-}
-```
-
-```csharp
-class Dictionary<TKey, TValue>
-{
-}
-```
-
-Meaningful names can improve readability when there are multiple type parameters.
-
----
-
-# 28. Generic Class Example: Hotel
-
-Suppose we want a reusable manager for hotel entities.
-
-```csharp
-class Manager<T>
-{
-    private readonly List<T> items = new();
-
-    public void Add(T item)
-    {
-        items.Add(item);
-    }
-
-    public void DisplayAll()
-    {
-        foreach (T item in items)
-        {
-            Console.WriteLine(item);
-        }
-    }
-}
-```
-
-Create a food manager:
-
-```csharp
-Manager<string> foodManager = new();
-
-foodManager.Add("Pizza");
-foodManager.Add("Burger");
-foodManager.Add("Momo");
-
-foodManager.DisplayAll();
-```
-
-The same class can manage numbers:
-
-```csharp
-Manager<int> numberManager = new();
-
-numberManager.Add(10);
-numberManager.Add(20);
-numberManager.Add(30);
-```
-
----
-
-# 29. Generic API Response
-
-Generics are very useful for API response models.
-
-For example:
-
-```csharp
-class ApiResponse<T>
-{
-    public bool Success { get; set; }
-    public string Message { get; set; } = "";
-    public T? Data { get; set; }
-}
-```
-
-A user response:
-
-```csharp
-ApiResponse<User> response = new()
-{
-    Success = true,
-    Message = "User fetched successfully",
-    Data = new User()
-};
-```
-
-A food response:
-
-```csharp
-ApiResponse<List<Food>> response = new()
-{
-    Success = true,
-    Message = "Foods fetched successfully",
-    Data = foods
-};
-```
-
-The same response structure supports different data types.
-
----
-
-# 30. Generic Result Example
-
-A common backend design is:
-
-```csharp
-class Result<T>
-{
-    public bool Success { get; set; }
-    public string Message { get; set; } = "";
-    public T? Data { get; set; }
-
-    public static Result<T> Ok(T data, string message)
-    {
-        return new Result<T>
-        {
-            Success = true,
-            Message = message,
-            Data = data
-        };
-    }
-}
-```
-
-Usage:
-
-```csharp
-Result<string> result =
-    Result<string>.Ok(
-        "Sandip",
-        "User fetched successfully"
-    );
-```
-
-Another type:
-
-```csharp
-Result<int> result =
-    Result<int>.Ok(
-        100,
-        "Value fetched successfully"
-    );
-```
-
----
-
-# 31. Generic Methods with Constraints
-
-Constraints become especially useful when your generic method needs specific functionality.
-
-For example:
-
-```csharp
-static T Max<T>(T a, T b) where T : IComparable<T>
-{
-    return a.CompareTo(b) > 0 ? a : b;
-}
-```
-
-Usage:
-
-```csharp
-int result = Max(10, 20);
-
-Console.WriteLine(result);
-```
-
-Output:
-
-```text
-20
-```
-
-Why do we need:
-
-```csharp
-where T : IComparable<T>
-```
-
-Because the method calls:
-
-```csharp
-a.CompareTo(b)
-```
-
-The compiler needs to know that `T` supports `CompareTo()`.
-
----
-
-# 32. Generic Interfaces and Polymorphism
-
-Generics can work together with interfaces.
-
-```csharp
-interface IRepository<T>
-{
-    void Add(T item);
-}
-```
-
-Implementation:
-
-```csharp
-class Repository<T> : IRepository<T>
-{
-    public void Add(T item)
-    {
-        Console.WriteLine($"Added: {item}");
-    }
-}
-```
-
-Usage:
-
-```csharp
-IRepository<string> repository =
-    new Repository<string>();
-
-repository.Add("Pizza");
-```
-
-This combines:
-
-```text
-Generics
-+
-Interfaces
-+
-Polymorphism
-```
-
-This pattern is common in application architecture.
-
----
-
-# 33. Generic Inheritance
-
-A generic class can inherit from another class.
-
-```csharp
-class BaseRepository<T>
-{
-    public void Add(T item)
-    {
-        Console.WriteLine("Added item.");
-    }
-}
-
-class UserRepository : BaseRepository<User>
-{
-}
-```
-
-Now:
-
-```csharp
-UserRepository repository = new();
-
-repository.Add(new User());
-```
-
----
-
-# 34. Generic Nested Types
-
-A generic type can contain another generic type.
-
-```csharp
-class Response<T>
-{
-    public class Metadata
-    {
-        public int StatusCode { get; set; }
-    }
-
-    public T? Data { get; set; }
-}
-```
-
-Usage:
-
-```csharp
-Response<string> response = new();
-
-response.Data = "Hello";
-```
-
----
-
-# 35. Generic vs Object
-
-You might wonder why not simply use `object`.
-
-Example:
-
-```csharp
+```csharp id="uj1fwy"
 object value = 100;
-```
 
-Then:
-
-```csharp
 int number = (int)value;
 ```
 
 With generics:
 
-```csharp
-class Box<T>
-{
-    public T Value { get; set; }
-}
+```csharp id="zq5x2y"
+List<int> numbers = new();
 ```
 
-Usage:
-
-```csharp
-Box<int> box = new();
-
-box.Value = 100;
-
-int number = box.Value;
-```
-
-Benefits of generics:
-
-```text
-Type safety
-No unnecessary casting
-Better readability
-Better reuse
-Better performance for value types
-```
+Generics provide compile-time type safety.
 
 ---
 
-# 36. Generics vs Overloading
+# 14. Hotel Example
 
-Without generics:
+Generic response model:
 
-```csharp
-int Add(int a, int b)
+```csharp id="5emh3v"
+class ApiResponse<T>
 {
-    return a + b;
-}
-
-double Add(double a, double b)
-{
-    return a + b;
+    public bool Success { get; set; }
+    public T? Data { get; set; }
+    public string Message { get; set; } = "";
 }
 ```
 
-This works, but requires multiple implementations.
+Food response:
 
-Generics can reduce duplication when the operation is valid for a broad set of types:
-
-```csharp
-static T GetValue<T>(T value)
+```csharp id="j6n0vo"
+ApiResponse<List<Food>> response = new()
 {
-    return value;
-}
+    Success = true,
+    Data = foods,
+    Message = "Foods loaded"
+};
 ```
 
-However, generics are **not a replacement for method overloading** in every situation.
+Order response:
 
-Use the approach that best represents the operation.
+```csharp id="v7h3gp"
+ApiResponse<Order> response = new()
+{
+    Success = true,
+    Data = order,
+    Message = "Order created"
+};
+```
+
+Same generic class, different types.
 
 ---
 
-# 37. Complete Generic Example
+# 15. Generic Method with Constraint
 
-```csharp
-using System;
-using System.Collections.Generic;
+```csharp id="x5l7uj"
+static void Display<T>(T item)
+    where T : class
+{
+    Console.WriteLine(item);
+}
+```
+
+Only reference types can be passed.
+
+---
+
+# 16. Generic Inheritance
+
+```csharp id="q8x1k6"
+class Animal
+{
+}
 
 class Repository<T>
 {
-    private readonly List<T> items = new();
-
-    public void Add(T item)
-    {
-        items.Add(item);
-    }
-
-    public List<T> GetAll()
-    {
-        return items;
-    }
-
-    public int Count()
-    {
-        return items.Count;
-    }
 }
 
-class Food
+class AnimalRepository : Repository<Animal>
 {
-    public string Name { get; set; } = "";
-    public decimal Price { get; set; }
-
-    public override string ToString()
-    {
-        return $"{Name} - Rs. {Price}";
-    }
 }
-
-class Program
-{
-    static void Main()
-    {
-        Repository<Food> foodRepository = new();
-
-        foodRepository.Add(
-            new Food
-            {
-                Name = "Pizza",
-                Price = 500
-            }
-        );
-
-        foodRepository.Add(
-            new Food
-            {
-                Name = "Momo",
-                Price = 250
-            }
-        );
-
-        Console.WriteLine(
-            $"Total foods: {foodRepository.Count()}"
-        );
-
-        foreach (Food food in foodRepository.GetAll())
-        {
-            Console.WriteLine(food);
-        }
-    }
-}
-```
-
-Output:
-
-```text
-Total foods: 2
-Pizza - Rs. 500
-Momo - Rs. 250
 ```
 
 ---
 
-# 38. Important Generic Concepts
+# 17. Naming Conventions
 
-```text
-Generic
-│
-├── Generic Class
-│
-├── Generic Method
-│
-├── Generic Interface
-│
-├── Generic Delegate
-│
-├── Generic Collection
-│
-├── Generic Constraints
-│
-└── Type Inference
+Common generic type names:
+
+```text id="j6k7e1"
+T      → Type
+TKey   → Key type
+TValue → Value type
+TItem  → Item type
+TEntity → Entity type
+```
+
+Example:
+
+```csharp id="5t0g8f"
+class Repository<TEntity>
+{
+}
 ```
 
 ---
 
-# 39. Generic Mental Model
+# 18. Quick Revision
 
-Think of:
-
-```csharp
-Box<T>
-```
-
-as:
-
-```text
-Box of something
-```
-
-Then:
-
-```csharp
-Box<int>
-```
-
-means:
-
-```text
-Box of int
-```
-
-and:
-
-```csharp
-Box<string>
-```
-
-means:
-
-```text
-Box of string
-```
-
-So:
-
-```text
-T = placeholder for a type
-```
+| Concept           | Meaning                             |
+| ----------------- | ----------------------------------- |
+| `T`               | Generic type                        |
+| Generic Class     | Class working with different types  |
+| Generic Method    | Method working with different types |
+| Generic Interface | Reusable typed interface            |
+| Constraint        | Restricts allowed types             |
+| `class`           | Reference type constraint           |
+| `struct`          | Value type constraint               |
+| `new()`           | Requires parameterless constructor  |
+| `default(T)`      | Default value of T                  |
+| `List<T>`         | Generic collection                  |
 
 ---
 
-# 40. Quick Revision
+# 19. Mental Model
 
-### What are generics?
-
-Generics allow reusable, type-safe code that works with different types.
-
-### What does `T` mean?
-
-`T` is commonly used as a generic type parameter.
-
-### Example
-
-```csharp
-class Box<T>
-{
-    public T Value { get; set; }
-}
+```text id="k4y6pf"
+Generics
+   ↓
+Reusable Code
+   ↓
+Different Types
+   ↓
+Type Safety
+   ↓
+Less Casting
 ```
 
-### Generic class
+Example:
 
-```csharp
-Box<int>
-Box<string>
-```
-
-### Generic method
-
-```csharp
-static void Display<T>(T value)
-{
-    Console.WriteLine(value);
-}
-```
-
-### Generic constraint
-
-```csharp
-where T : class
-```
-
-### Multiple constraints
-
-```csharp
-where T : class, IEntity, new()
-```
-
-### Generic collection
-
-```csharp
+```csharp id="7j4g6x"
+List<int>
 List<string>
-Dictionary<int, string>
+List<Food>
+List<Order>
 ```
 
-### Generic interface
-
-```csharp
-IRepository<User>
-```
-
-### Generic delegate
-
-```csharp
-Action<string>
-Func<int, int>
-Predicate<int>
-```
+Same `List<T>` concept, different types.
 
 ---
 
-# 41. Common Generic Constraints Revision
+# Final Checklist
 
-```csharp
-where T : class
-```
+* [ ] Generic classes
+* [ ] Generic methods
+* [ ] Generic interfaces
+* [ ] Multiple type parameters
+* [ ] Generic collections
+* [ ] Generic constraints
+* [ ] `class` constraint
+* [ ] `struct` constraint
+* [ ] `new()` constraint
+* [ ] Interface constraints
+* [ ] `Action`
+* [ ] `Func`
+* [ ] `Predicate`
+* [ ] `default(T)`
+* [ ] Generic repository
+* [ ] Generic API response
+* [ ] Generic naming conventions
 
-Reference type.
+**Remember:**
 
-```csharp
-where T : struct
-```
-
-Value type.
-
-```csharp
-where T : new()
-```
-
-Public parameterless constructor.
-
-```csharp
-where T : BaseClass
-```
-
-Must inherit from `BaseClass`.
-
-```csharp
-where T : IInterface
-```
-
-Must implement the interface.
-
-```csharp
-where T : notnull
-```
-
-Must not be nullable.
-
----
-
-# 42. Best Practices
-
-* Prefer generics over unnecessary `object` usage.
-* Use meaningful generic parameter names when appropriate.
-* Use constraints when the generic code requires specific capabilities.
-* Prefer generic collections such as `List<T>` and `Dictionary<TKey,TValue>`.
-* Avoid unnecessary casting.
-* Keep generic APIs simple and readable.
-* Don't make everything generic without a real reason.
-* Combine generics with interfaces when designing reusable components.
-* Use type inference when it improves readability.
-* Use constraints to communicate requirements to the compiler.
-
----
-
-# Summary
-
-The main idea of generics is:
-
-```text
-Write once → Reuse with different types
-```
-
-For example:
-
-```csharp
-class Box<T>
-{
-    public T Value { get; set; }
-}
-```
-
-Then:
-
-```csharp
-Box<int> numberBox = new();
-Box<string> nameBox = new();
-Box<Food> foodBox = new();
-```
-
-The same class works with different types while maintaining **compile-time type safety**.
-
-Generics are one of the foundations of modern C# because many important .NET features—including collections, delegates, interfaces, and reusable application components—use them.
+> **Generics = Write once, use with different types, while keeping type safety.**
