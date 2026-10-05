@@ -1328,30 +1328,6 @@ Real-world backend applications
 
 ---
 
-# 30. Quick Revision
-
-Before moving forward, make sure you understand:
-
-* [ ] What is OOP?
-* [ ] What is a class?
-* [ ] What is an object?
-* [ ] What is a property?
-* [ ] What is a field?
-* [ ] What is a constructor?
-* [ ] What is a method?
-* [ ] What is `this`?
-* [ ] What is constructor overloading?
-* [ ] What is encapsulation?
-* [ ] What is inheritance?
-* [ ] What is polymorphism?
-* [ ] What are `virtual` and `override`?
-* [ ] What is abstraction?
-* [ ] What is an abstract class?
-* [ ] How are C# classes used in real applications?
-* [ ] How do C# classes represent JSON/API data?
-
----
-
 # Summary
 
 C# OOP is based on four major principles:
