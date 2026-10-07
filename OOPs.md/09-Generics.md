@@ -473,26 +473,6 @@ Same `List<T>` concept, different types.
 
 ---
 
-# Final Checklist
-
-* [ ] Generic classes
-* [ ] Generic methods
-* [ ] Generic interfaces
-* [ ] Multiple type parameters
-* [ ] Generic collections
-* [ ] Generic constraints
-* [ ] `class` constraint
-* [ ] `struct` constraint
-* [ ] `new()` constraint
-* [ ] Interface constraints
-* [ ] `Action`
-* [ ] `Func`
-* [ ] `Predicate`
-* [ ] `default(T)`
-* [ ] Generic repository
-* [ ] Generic API response
-* [ ] Generic naming conventions
-
 **Remember:**
 
 > **Generics = Write once, use with different types, while keeping type safety.**
