@@ -494,21 +494,6 @@ Peek()
 
 ---
 
-# Final Checklist
-
-* [ ] `List<T>`
-* [ ] `Dictionary<TKey,TValue>`
-* [ ] `HashSet<T>`
-* [ ] `Queue<T>`
-* [ ] `Stack<T>`
-* [ ] `LinkedList<T>`
-* [ ] Generic collections
-* [ ] Collection interfaces
-* [ ] `foreach`
-* [ ] LINQ with collections
-* [ ] Collection expressions
-* [ ] Choose the correct collection
-
 **Remember:**
 
 ```text
